@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>snecsy ✧ Sanctuary</title>
+  
+  <!-- Divine Google Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       DIVINE THEME & SYSTEM VARIABLES
+    ========================================================= */
+    :root {
+      --bg-void: #050507;
+      --gold-primary: #f2cb73;
+      --gold-shimmer: #fff6d6;
+      --gold-deep: #a87928;
+      --gold-dark: #4d360f;
+      --divine-glow: rgba(242, 203, 115, 0.45);
+      --card-glass: rgba(14, 13, 18, 0.65);
+      --card-border: rgba(242, 203, 115, 0.22);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-void);
+      color: #e5e5e7;
+      font-family: 'Cinzel', serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Ambient God Rays & Celestial Nebula */
+    .celestial-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 50% 85%, rgba(120, 80, 20, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, #0c0b11 0%, #030305 100%);
+      z-index: 1;
+    }
+
+    .light-ray {
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 100vh;
+      background: radial-gradient(ellipse at top, rgba(255, 230, 160, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(40px);
+      z-index: 2;
+    }
+
+    /* Floating Golden Sparks Canvas */
+    #embers-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* =========================================================
+       ENTRY SEAL (AUTOPLAY UNLOCKER)
+    ========================================================= */
+    #gatekeeper {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(4, 4, 6, 0.96);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s;
+    }
+
+    #gatekeeper.unsealed {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .sigil-box {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .sigil-ring {
+      position: absolute;
+      inset: 0;
+      border: 1px dashed rgba(242, 203, 115, 0.5);
+      border-radius: 50%;
+      animation: rotateRing 20s linear infinite;
+    }
+
+    .sigil-ring.outer {
+      inset: -12px;
+      border: 1px solid rgba(242, 203, 115, 0.25);
+      animation: rotateRingRev 30s linear infinite;
+    }
+
+    .grail-icon {
+      width: 52px;
+      height: 52px;
+      fill: var(--gold-primary);
+      filter: drop-shadow(0 0 16px var(--gold-primary));
+      animation: divinePulse 3s ease-in-out infinite alternate;
+    }
+
+    .entry-prompt {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-shimmer);
+      text-shadow: 0 0 15px var(--gold-primary);
+      margin-top: 1rem;
+    }
+
+    .entry-subtext {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: rgba(242, 203, 115, 0.6);
+      margin-top: 0.5rem;
+    }
+
+    /* =========================================================
+       AUDIO CONTROLLER
+    ========================================================= */
+    .audio-panel {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(18, 17, 24, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .audio-panel:hover {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 20px rgba(242, 203, 115, 0.2);
+    }
+
+    .eq-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 14px;
+    }
+
+    .eq-bar {
+      width: 2.5px;
+      background: var(--gold-primary);
+      height: 3px;
+      border-radius: 3px;
+      transition: height 0.2s ease;
+    }
+
+    .playing .eq-bar:nth-child(1) { animation: soundBars 0.8s ease-in-out infinite alternate; }
+    .playing .eq-bar:nth-child(2) { animation: soundBars 1.1s ease-in-out 0.2s infinite alternate; }
+    .playing .eq-bar:nth-child(3) { animation: soundBars 0.7s ease-in-out 0.4s infinite alternate; }
+    .playing .eq-bar:nth-child(4) { animation: soundBars 0.9s ease-in-out 0.1s infinite alternate; }
+
+    .track-meta {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-shimmer);
+    }
+
+    /* =========================================================
+       SANCTUM RELIC CARD
+    ========================================================= */
+    .card-wrapper {
+      position: relative;
+      z-index: 10;
+      perspective: 1000px;
+      padding: 1.5rem;
+    }
+
+    .relic-card {
+      position: relative;
+      width: 440px;
+      max-width: 90vw;
+      background: var(--card-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 24px;
+      border: 1px solid var(--card-border);
+      padding: 3.5rem 2.5rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.9),
+        0 0 40px rgba(212, 175, 55, 0.08),
+        inset 0 1px 1px rgba(255, 245, 215, 0.25);
+      transform-style: preserve-3d;
+      transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), border-color 0.4s ease;
+    }
+
+    .relic-card:hover {
+      border-color: rgba(242, 203, 115, 0.45);
+    }
+
+    /* Halo & Profile Frame */
+    .avatar-sanctuary {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin-bottom: 2rem;
+    }
+
+    .celestial-ring {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .ring-outer {
+      inset: -14px;
+      border: 1px dashed rgba(242, 203, 115, 0.4);
+      animation: rotateRing 25s linear infinite;
+    }
+
+    .ring-inner {
+      inset: -6px;
+      border: 1px solid rgba(242, 203, 115, 0.6);
+      box-shadow: 0 0 25px var(--divine-glow);
+    }
+
+    .avatar-container {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      background: #111;
+      border: 2px solid var(--gold-shimmer);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Holy Light Sweep Across Profile */
+    .avatar-container::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      animation: lightShine 6s infinite ease-in-out;
+    }
+
+    /* Identity Typography */
+    .username {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, #fff7dc 0%, #f2cb73 45%, #b6852f 80%, #ffd988 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(242, 203, 115, 0.35));
+      margin-bottom: 0.5rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 30px;
+      background: rgba(242, 203, 115, 0.08);
+      border: 1px solid rgba(242, 203, 115, 0.3);
+      margin-bottom: 1.5rem;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--gold-primary);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--gold-primary);
+      animation: divinePulse 2s infinite ease-in-out;
+    }
+
+    .status-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--gold-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .bio-verse {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      color: #b0afb8;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    /* Links & Relic Portals */
+    .actions-grid {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .portal-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.4rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portal-btn.primary {
+      background: linear-gradient(135deg, rgba(242, 203, 115, 0.2) 0%, rgba(168, 121, 40, 0.2) 100%);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-shimmer);
+      box-shadow: 0 0 15px rgba(242, 203, 115, 0.15);
+    }
+
+    .portal-btn.primary:hover {
+      background: linear-gradient(135deg, rgba(242, 203, 115, 0.35) 0%, rgba(168, 121, 40, 0.35) 100%);
+      box-shadow: 0 0 25px rgba(242, 203, 115, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .portal-btn.secondary {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #d1d0db;
+    }
+
+    .portal-btn.secondary:hover {
+      border-color: rgba(242, 203, 115, 0.5);
+      color: var(--gold-shimmer);
+      background: rgba(242, 203, 115, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Keyframe Animations */
+    @keyframes rotateRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateRingRev {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes divinePulse {
+      0% { opacity: 0.5; filter: drop-shadow(0 0 4px var(--gold-primary)); }
+      100% { opacity: 1; filter: drop-shadow(0 0 18px var(--gold-shimmer)); }
+    }
+
+    @keyframes lightShine {
+      0%, 20% { left: -70%; }
+      60%, 100% { left: 160%; }
+    }
+
+    @keyframes soundBars {
+      0% { height: 3px; }
+      100% { height: 14px; }
+    }
+
+    @media (max-width: 480px) {
+      .relic-card {
+        padding: 3rem 1.8rem 2.2rem;
+      }
+      .username {
+        font-size: 1.8rem;
+      }
+      .actions-grid {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Canvas & Sacred Elements -->
+  <div class="celestial-bg"></div>
+  <div class="light-ray"></div>
+  <canvas id="embers-canvas"></canvas>
+
+  <!-- =========================================================
+       AUDIO ELEMENT
+       Replace 'solace.mp3' with your audio file or direct URL
+  ========================================================= -->
+  <audio id="grail-bgm" loop preload="auto">
+    <source src="solace.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Autoplay Bypass Overlay -->
+  <div id="gatekeeper">
+    <div class="sigil-box">
+      <div class="sigil-ring outer"></div>
+      <div class="sigil-ring"></div>
+      <svg class="grail-icon" viewBox="0 0 24 24">
+        <!-- Sacred Holy Grail / Chalice Glyph -->
+        <path d="M12 2L15 8H9L12 2ZM5 9C5 13.5 8.5 16.5 11 16.92V19H8V21H16V19H13V16.92C15.5 16.5 19 13.5 19 9H5Z"/>
+      </svg>
+    </div>
+    <div class="entry-prompt">Enter The Sanctum</div>
+    <div class="entry-subtext">Click anywhere to cross the threshold</div>
+  </div>
+
+  <!-- Audio Control Button -->
+  <div class="audio-panel" id="audio-panel" title="Toggle Hymn">
+    <div class="eq-wave" id="eq-wave">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+    <span class="track-meta">txmy — Solace</span>
+  </div>
+
+  <!-- Main Relic Card Container -->
+  <div class="card-wrapper">
+    <div class="relic-card" id="relic-card">
+      
+      <!-- Divine Avatar Frame -->
+      <div class="avatar-sanctuary">
+        <div class="celestial-ring ring-outer"></div>
+        <div class="celestial-ring ring-inner"></div>
+        <div class="avatar-container">
+          <!-- 
+            AVATAR IMAGE:
+            Uses 'pfp.png' from the same repository/folder.
+            Ensure your image is named pfp.png or adjust below.
+          -->
+          <img src="pfp.png" alt="Profile" class="avatar-img" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=400&q=80'">
+        </div>
+      </div>
+
+      <!-- User Identification -->
+      <h1 class="username">snecsy</h1>
+
+      <!-- Status Badge -->
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span class="status-text">Ascended Entity</span>
+      </div>
+
+      <!-- Bio / Description -->
+      <p class="bio-verse">
+        Forged in darkness, crowned in gold. Walking the fine line between the divine and the abyss.
+      </p>
+
+      <!-- Action Relics / Links -->
+      <div class="actions-grid">
+        <a href="https://guns.lol/snecsy" target="_blank" rel="noopener noreferrer" class="portal-btn primary">
+          <span>Guns.lol</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+        <a href="https://discord.com/users/snecsy" target="_blank" rel="noopener noreferrer" class="portal-btn secondary">
+          <span>Discord</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Interactive Scripts & Golden Particle Simulation -->
+  <script>
+    /* =========================================================
+       AUDIO & UNSEAL TRIGGER
+    ========================================================= */
+    const gatekeeper = document.getElementById('gatekeeper');
+    const audioPanel = document.getElementById('audio-panel');
+    const audio = document.getElementById('grail-bgm');
+    let isPlaying = false;
+
+    // Start Audio upon Entering Sanctuary
+    gatekeeper.addEventListener('click', () => {
+      gatekeeper.classList.add('unsealed');
+      playHymn();
+    });
+
+    function playHymn() {
+      audio.volume = 0.5;
+      audio.play().then(() => {
+        isPlaying = true;
+        audioPanel.classList.add('playing');
+      }).catch(err => {
+        console.warn("Autoplay prevention intercepted:", err);
+      });
+    }
+
+    // Toggle playback via top widget
+    audioPanel.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        audioPanel.classList.remove('playing');
+      } else {
+        audio.play();
+        audioPanel.classList.add('playing');
+      }
+      isPlaying = !isPlaying;
+    });
+
+    /* =========================================================
+       3D PARALLAX CARD TILT EFFECT
+    ========================================================= */
+    const card = document.getElementById('relic-card');
+
+    document.addEventListener('mousemove', (e) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX - innerWidth / 2) / (innerWidth / 2);
+      const y = (e.clientY - innerHeight / 2) / (innerHeight / 2);
+
+      const tiltX = -y * 12; // degrees
+      const tiltY = x * 12;
+
+      card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    });
+
+    document.addEventListener('mouseleave', () => {
+      card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    });
+
+    /* =========================================================
+       GOLDEN DUST & SPARKS PARTICLE ENGINE
+    ========================================================= */
+    const canvas = document.getElementById('embers-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const particleCount = 65;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class GoldenEmber {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 50;
+        this.radius = Math.random() * 1.8 + 0.4;
+        this.speedY = Math.random() * 0.9 + 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.alpha = Math.random() * 0.7 + 0.2;
+        this.fadeSpeed = Math.random() * 0.004 + 0.002;
+      }
+
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        this.alpha -= this.fadeSpeed;
+
+        if (this.y < -10 || this.alpha <= 0) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(242, 203, 115, ${this.alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#f2cb73';
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      const ember = new GoldenEmber();
+      ember.y = Math.random() * canvas.height; // distribute initially
+      particles.push(ember);
+    }
+
+    function animateEmbers() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateEmbers);
+    }
+    animateEmbers();
+  </script>
+</body>
+</html>
