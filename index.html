@@ -8,18 +8,15 @@
   <!-- Divine Google Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* =========================================================
-       ETHEREAL CELESTIAL WHITE PALETTE
-    ========================================================= */
     :root {
       --void: #030304;
       --pure-white: #ffffff;
       --celestial-white: #f5f6fa;
       --silver-mist: rgba(255, 255, 255, 0.65);
-      --diamond-glow: rgba(255, 255, 255, 0.4);
+      --diamond-glow: rgba(255, 255, 255, 0.45);
       --glass-bg: rgba(255, 255, 255, 0.025);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-hover: rgba(255, 255, 255, 0.35);
@@ -41,43 +38,43 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       position: relative;
     }
 
-    /* Cinematic Atmospheric Lighting */
+    /* Ambient Celestial Fields */
     .celestial-space {
-      position: absolute;
+      position: fixed;
       inset: 0;
       background: 
-        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.14) 0%, transparent 55%),
-        radial-gradient(circle at 50% 50%, #0a0a0e 0%, #030304 100%);
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.13) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, #09090d 0%, #020203 100%);
       z-index: 1;
     }
 
-    /* Ethereal God Ray from Heaven */
     .god-ray {
-      position: absolute;
+      position: fixed;
       top: -30%;
       left: 50%;
       transform: translateX(-50%);
-      width: 750px;
-      height: 130vh;
-      background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 45%, transparent 75%);
+      width: 900px;
+      height: 140vh;
+      background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 75%);
       pointer-events: none;
-      filter: blur(50px);
+      filter: blur(55px);
       z-index: 2;
     }
 
     #celestial-dust {
-      position: absolute;
+      position: fixed;
       inset: 0;
       z-index: 3;
       pointer-events: none;
     }
 
     /* =========================================================
-       CINEMATIC GATEWAY (INTRO SCREEN)
+       CINEMATIC GATEKEEPER
     ========================================================= */
     #sanctum-gate {
       position: fixed;
@@ -89,7 +86,7 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.4s;
+      transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.3s;
     }
 
     #sanctum-gate.opened {
@@ -99,15 +96,14 @@
       pointer-events: none;
     }
 
-    /* Sacred Geometry Gateway Sigil */
     .sanctum-orb {
       position: relative;
-      width: 220px;
-      height: 220px;
+      width: 200px;
+      height: 200px;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
     .orbital-ring {
@@ -116,23 +112,9 @@
       pointer-events: none;
     }
 
-    .ring-1 {
-      inset: 0;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      animation: rotateCw 30s linear infinite;
-    }
-
-    .ring-2 {
-      inset: 18px;
-      border: 1px dashed rgba(255, 255, 255, 0.35);
-      animation: rotateCcw 20s linear infinite;
-    }
-
-    .ring-3 {
-      inset: 38px;
-      border: 1px dotted rgba(255, 255, 255, 0.55);
-      animation: rotateCw 14s linear infinite;
-    }
+    .ring-1 { inset: 0; border: 1px solid rgba(255, 255, 255, 0.15); animation: rotateCw 30s linear infinite; }
+    .ring-2 { inset: 16px; border: 1px dashed rgba(255, 255, 255, 0.35); animation: rotateCcw 20s linear infinite; }
+    .ring-3 { inset: 32px; border: 1px dotted rgba(255, 255, 255, 0.55); animation: rotateCw 14s linear infinite; }
 
     .cross-axis {
       position: absolute;
@@ -140,29 +122,24 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
     }
-
-    .cross-axis.vertical {
-      transform: rotate(90deg);
-    }
+    .cross-axis.vertical { transform: rotate(90deg); }
 
     .core-diamond {
       width: 14px;
       height: 14px;
       background: #ffffff;
       transform: rotate(45deg);
-      box-shadow: 
-        0 0 25px 8px rgba(255, 255, 255, 0.8),
-        0 0 60px 15px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.8), 0 0 50px 15px rgba(255, 255, 255, 0.4);
       animation: divineBreathe 3s infinite ease-in-out;
     }
 
     .gate-title {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       letter-spacing: 0.5em;
       text-transform: uppercase;
       color: #ffffff;
-      text-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 45px rgba(255, 255, 255, 0.3);
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
       margin-bottom: 0.8rem;
     }
 
@@ -175,12 +152,10 @@
       transition: color 0.3s;
     }
 
-    #sanctum-gate:hover .gate-subtitle {
-      color: rgba(255, 255, 255, 0.85);
-    }
+    #sanctum-gate:hover .gate-subtitle { color: rgba(255, 255, 255, 0.85); }
 
     /* =========================================================
-       AUDIO CONTROLLER PILL
+       AUDIO CONTROLLER
     ========================================================= */
     .music-widget {
       position: fixed;
@@ -206,77 +181,169 @@
       transform: translateY(-2px);
     }
 
-    .music-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      height: 14px;
-    }
-
-    .music-bar {
-      width: 2px;
-      background: #ffffff;
-      height: 3px;
-      border-radius: 2px;
-      transition: height 0.2s ease;
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-    }
+    .music-bars { display: flex; align-items: flex-end; gap: 3px; height: 14px; }
+    .music-bar { width: 2px; background: #ffffff; height: 3px; border-radius: 2px; box-shadow: 0 0 6px rgba(255, 255, 255, 0.8); }
 
     .playing .music-bar:nth-child(1) { animation: soundPulse 0.9s ease-in-out infinite alternate; }
     .playing .music-bar:nth-child(2) { animation: soundPulse 1.2s ease-in-out 0.2s infinite alternate; }
     .playing .music-bar:nth-child(3) { animation: soundPulse 0.8s ease-in-out 0.4s infinite alternate; }
     .playing .music-bar:nth-child(4) { animation: soundPulse 1.0s ease-in-out 0.1s infinite alternate; }
 
-    .track-name {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      color: var(--pure-white);
-      text-transform: uppercase;
-      font-weight: 600;
-    }
+    .track-name { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--pure-white); text-transform: uppercase; font-weight: 600; }
 
     /* =========================================================
-       THE ASCENSION RELIC CARD
+       SANCTUM LAYOUT (LEFT PROFILE + RIGHT RELIQUARY)
     ========================================================= */
-    .stage {
+    .stage-wrapper {
       position: relative;
       z-index: 10;
-      perspective: 1200px;
-      padding: 1.5rem;
+      perspective: 1400px;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .sanctuary-layout {
+      display: flex;
+      gap: 2.2rem;
+      align-items: stretch;
+      max-width: 950px;
+      width: 100%;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     .card {
-      position: relative;
-      width: 440px;
-      max-width: 90vw;
       background: var(--glass-bg);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
       border-radius: 26px;
       border: 1px solid var(--glass-border);
-      padding: 3.8rem 2.6rem 3rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      box-shadow: 
-        0 30px 60px -15px rgba(0, 0, 0, 0.95),
-        0 0 60px rgba(255, 255, 255, 0.04),
-        inset 0 1px 1px rgba(255, 255, 255, 0.4);
-      transform-style: preserve-3d;
-      transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), border-color 0.4s ease;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(255, 255, 255, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transition: border-color 0.4s ease;
     }
 
     .card:hover {
       border-color: var(--glass-border-hover);
     }
 
-    /* Avatar & Triple Halo */
+    /* Left Card: Main Profile */
+    .profile-card {
+      flex: 1.1;
+      padding: 3.5rem 2.4rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Right Card: Games / Reliquary */
+    .reliquary-card {
+      flex: 1.2;
+      padding: 2.8rem 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+
+    .section-sub {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.1em;
+    }
+
+    /* Games Showcase Grid */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .game-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #0d0d12;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: brightness(0.85);
+    }
+
+    .game-item:hover {
+      transform: translateY(-5px) scale(1.03);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
+    }
+
+    .game-item:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.05);
+    }
+
+    .game-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.6rem 0.4rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-align: center;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    /* Relic Footer Quote */
+    .relic-quote {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.45);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.2rem;
+      text-align: center;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* Avatar Halo Frame */
     .halo-wrapper {
       position: relative;
-      width: 154px;
-      height: 154px;
-      margin-bottom: 2.2rem;
+      width: 140px;
+      height: 140px;
+      margin-bottom: 1.8rem;
     }
 
     .halo-ring {
@@ -285,17 +352,8 @@
       pointer-events: none;
     }
 
-    .halo-outer {
-      inset: -16px;
-      border: 1px dashed rgba(255, 255, 255, 0.25);
-      animation: rotateCw 28s linear infinite;
-    }
-
-    .halo-inner {
-      inset: -8px;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: 0 0 35px var(--diamond-glow);
-    }
+    .halo-outer { inset: -14px; border: 1px dashed rgba(255, 255, 255, 0.25); animation: rotateCw 28s linear infinite; }
+    .halo-inner { inset: -7px; border: 1px solid rgba(255, 255, 255, 0.45); box-shadow: 0 0 35px var(--diamond-glow); }
 
     .pfp-frame {
       width: 100%;
@@ -308,14 +366,8 @@
       box-shadow: 0 0 35px rgba(255, 255, 255, 0.2);
     }
 
-    .pfp-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .pfp-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* Light Sweep Across Avatar */
     .pfp-frame::after {
       content: '';
       position: absolute;
@@ -323,38 +375,32 @@
       left: -70%;
       width: 45%;
       height: 220%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.45) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
       transform: rotate(32deg);
       animation: divineShine 6s infinite ease-in-out;
     }
 
-    /* User Identity Typography */
     .profile-name {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 900;
       letter-spacing: 0.15em;
       background: linear-gradient(180deg, #ffffff 20%, #c9c9d4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 2px 20px rgba(255, 255, 255, 0.45));
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .entity-tag {
       display: inline-flex;
       align-items: center;
       gap: 0.55rem;
-      padding: 0.35rem 1.1rem;
+      padding: 0.35rem 1rem;
       border-radius: 40px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.4rem;
     }
 
     .pulse-core {
@@ -366,27 +412,28 @@
       animation: divineBreathe 2s infinite ease-in-out;
     }
 
-    .tag-title {
-      font-size: 0.68rem;
-      letter-spacing: 0.3em;
-      color: #ffffff;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+    .tag-title { font-size: 0.65rem; letter-spacing: 0.28em; color: #ffffff; font-weight: 700; text-transform: uppercase; }
 
     .verse-bio {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.65);
       line-height: 1.8;
-      margin-bottom: 2.2rem;
+      margin-bottom: 2rem;
       font-weight: 300;
     }
 
-    /* Actions Grid */
-    .button-group {
+    /* Actions: Copy Tag, Steam, TikTok */
+    .button-stack {
       display: flex;
-      gap: 0.9rem;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .link-row {
+      display: flex;
+      gap: 0.75rem;
       width: 100%;
     }
 
@@ -395,17 +442,16 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      padding: 0.85rem 1.4rem;
+      gap: 0.55rem;
+      padding: 0.8rem 1.2rem;
       border-radius: 12px;
       text-decoration: none;
       font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       cursor: pointer;
       transition: all 0.35s ease;
-      position: relative;
       border: none;
       outline: none;
     }
@@ -433,7 +479,7 @@
       transform: translateY(-2px);
     }
 
-    /* Copied Toast Notification */
+    /* Toast */
     #copy-toast {
       position: fixed;
       bottom: 2rem;
@@ -454,34 +500,37 @@
       pointer-events: none;
     }
 
-    #copy-toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    #copy-toast.show { opacity: 1; transform: translateY(0); }
 
-    /* Keyframes */
+    /* Animations */
     @keyframes rotateCw { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes rotateCcw { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
-
     @keyframes divineBreathe {
       0%, 100% { transform: scale(1) rotate(45deg); opacity: 0.7; }
       50% { transform: scale(1.25) rotate(45deg); opacity: 1; }
     }
-
     @keyframes divineShine {
       0%, 15% { left: -80%; }
       50%, 100% { left: 180%; }
     }
+    @keyframes soundPulse { 0% { height: 3px; } 100% { height: 14px; } }
 
-    @keyframes soundPulse {
-      0% { height: 3px; }
-      100% { height: 14px; }
+    /* Responsive */
+    @media (max-width: 860px) {
+      .sanctuary-layout {
+        flex-direction: column;
+      }
+      .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     @media (max-width: 480px) {
-      .card { padding: 3rem 1.8rem 2.2rem; }
-      .profile-name { font-size: 2rem; }
-      .button-group { flex-direction: column; }
+      .games-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .profile-name { font-size: 1.8rem; }
+      .link-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -522,48 +571,93 @@
     <span class="track-name">txmy — Solace</span>
   </div>
 
-  <!-- Main Relic Stage -->
-  <div class="stage">
-    <div class="card" id="relic-card">
+  <!-- Two-Column Sanctum Container -->
+  <div class="stage-wrapper">
+    <div class="sanctuary-layout" id="interactive-layout">
       
-      <!-- Avatar Section with Triple Celestial Ring -->
-      <div class="halo-wrapper">
-        <div class="halo-ring halo-outer"></div>
-        <div class="halo-ring halo-inner"></div>
-        <div class="pfp-frame">
-          <img src="pfp.png" alt="snecsy" class="pfp-img" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=400&q=80'">
+      <!-- LEFT: Profile Identity -->
+      <div class="card profile-card">
+        <div class="halo-wrapper">
+          <div class="halo-ring halo-outer"></div>
+          <div class="halo-ring halo-inner"></div>
+          <div class="pfp-frame">
+            <img src="pfp.png" alt="snecsy" class="pfp-img" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=400&q=80'">
+          </div>
+        </div>
+
+        <h1 class="profile-name">snecsy</h1>
+
+        <div class="entity-tag">
+          <span class="pulse-core"></span>
+          <span class="tag-title">Ascended</span>
+        </div>
+
+        <p class="verse-bio">
+          Forged in darkness, crowned in light. Walking beyond the realm of mortals.
+        </p>
+
+        <!-- Buttons: Copy Tag, Steam, TikTok -->
+        <div class="button-stack">
+          <button class="action-btn primary" id="copy-btn">
+            <span>Copy Discord Tag</span>
+          </button>
+          <div class="link-row">
+            <a href="https://steamcommunity.com/id/snecsy" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+              <span>Steam</span>
+            </a>
+            <a href="https://www.tiktok.com/@snecsy" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+              <span>TikTok</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Identity -->
-      <h1 class="profile-name">snecsy</h1>
+      <!-- RIGHT: Sacred Reliquary (Games Showcase) -->
+      <div class="card reliquary-card">
+        <div>
+          <div class="section-header">
+            <span class="section-title">Sacred Archive</span>
+            <span class="section-sub">Favorites</span>
+          </div>
 
-      <!-- Status Pill -->
-      <div class="entity-tag">
-        <span class="pulse-core"></span>
-        <span class="tag-title">Ascended</span>
-      </div>
+          <div class="games-grid">
+            <!-- Ultrakill -->
+            <div class="game-item">
+              <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1229490/header.jpg" alt="Ultrakill">
+              <span class="game-title">Ultrakill</span>
+            </div>
+            <!-- Mortal Shell -->
+            <div class="game-item">
+              <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1110910/header.jpg" alt="Mortal Shell">
+              <span class="game-title">Mortal Shell</span>
+            </div>
+            <!-- CS2 -->
+            <div class="game-item">
+              <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="CS2">
+              <span class="game-title">Counter-Strike 2</span>
+            </div>
+            <!-- Valorant -->
+            <div class="game-item">
+              <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt8ef6efd25fb265dd/6502287e07a6ee31336a5fa3/VALORANT_Jett_KeyArt.jpg" alt="Valorant">
+              <span class="game-title">Valorant</span>
+            </div>
+            <!-- Half-Life 2 -->
+            <div class="game-item">
+              <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/220/header.jpg" alt="Half-Life 2">
+              <span class="game-title">Half-Life 2</span>
+            </div>
+          </div>
+        </div>
 
-      <!-- Bio -->
-      <p class="verse-bio">
-        Forged in darkness, crowned in light. Walking beyond the realm of mortals.
-      </p>
-
-      <!-- Clean Actions -->
-      <div class="button-group">
-        <a href="https://discord.com/users/snecsy" target="_blank" rel="noopener noreferrer" class="action-btn primary">
-          <span>Discord</span>
-        </a>
-        <button class="action-btn secondary" id="copy-btn">
-          <span>Copy Tag</span>
-        </button>
+        <div class="relic-quote">
+          ✧ Sealed within the celestial covenant ✧
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Copied Toast Notification -->
-  <div id="copy-toast">Username Copied to Clipboard</div>
+  <div id="copy-toast">Copied snecsy to clipboard</div>
 
   <script>
     /* =========================================================
@@ -608,20 +702,35 @@
     });
 
     /* =========================================================
-       SMOOTH 3D CARD PARALLAX TILT
+       ZERO-DELAY ULTRA-SMOOTH LERP TILT
     ========================================================= */
-    const card = document.getElementById('relic-card');
+    const layout = document.getElementById('interactive-layout');
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
 
-    document.addEventListener('mousemove', (e) => {
+    window.addEventListener('mousemove', (e) => {
       const { innerWidth, innerHeight } = window;
       const x = (e.clientX - innerWidth / 2) / (innerWidth / 2);
       const y = (e.clientY - innerHeight / 2) / (innerHeight / 2);
-      card.style.transform = `rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
+      
+      targetX = -y * 8.5; // pitch
+      targetY = x * 8.5;  // yaw
     });
 
-    document.addEventListener('mouseleave', () => {
-      card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    window.addEventListener('mouseleave', () => {
+      targetX = 0;
+      targetY = 0;
     });
+
+    function renderTilt() {
+      // Linear interpolation (instant tracking without lag, but silky smooth)
+      currentX += (targetX - currentX) * 0.12;
+      currentY += (targetY - currentY) * 0.12;
+
+      layout.style.transform = `rotateX(${currentX.toFixed(3)}deg) rotateY(${currentY.toFixed(3)}deg)`;
+      requestAnimationFrame(renderTilt);
+    }
+    renderTilt();
 
     /* =========================================================
        DIAMOND DUST & CELESTIAL STARDUST ENGINE
@@ -640,10 +749,7 @@
     window.addEventListener('resize', resize);
 
     class Stardust {
-      constructor() {
-        this.reset();
-      }
-
+      constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + Math.random() * 40;
@@ -653,14 +759,12 @@
         this.alpha = Math.random() * 0.8 + 0.2;
         this.decay = Math.random() * 0.003 + 0.001;
       }
-
       update() {
         this.y -= this.vy;
         this.x += this.vx;
         this.alpha -= this.decay;
         if (this.y < -10 || this.alpha <= 0) this.reset();
       }
-
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -680,13 +784,10 @@
 
     function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
+      particles.forEach(p => { p.update(); p.draw(); });
       requestAnimationFrame(render);
     }
     render();
   </script>
 </body>
-</html>git add . && git commit -m "Pure celestial white update" && git push
+</html>
